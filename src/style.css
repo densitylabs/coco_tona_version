@@ -1,0 +1,10 @@
+@font-face {
+  font-family: BarlowRegular;
+  src: url('./BarlowCondensed-Regular.ttf');
+}
+
+.hello {
+  color: red;
+  background: url('./hello.jpeg');
+  font-family: BarlowRegular;
+}
