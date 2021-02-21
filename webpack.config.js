@@ -6,7 +6,6 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    print: './src/print.js',
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -15,11 +14,23 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: 'Development',
+      template: 'public/index.html',
+      favicon: 'public/favicon.ico'
     })
   ],
   output: {
-    filename: '[name].bundle.js',
+    filename: 'bundle.[hash].js',
     path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
   }
 }
