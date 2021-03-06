@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+
+    // So that `import React from "react"` works
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }
+}

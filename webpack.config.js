@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/index.js',
+    index: './src/index.tsx',
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -25,12 +25,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }
       }
     ]
-  }
+  },
 }
