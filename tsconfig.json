@@ -10,8 +10,12 @@
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
 
-    // So that `import React from "react"` works
+    // So that `import React from "react"` works.
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    // To avoid typing long paths
+    // (requires `yarn add --dev tsconfig-paths-webpack-plugin`).
+    "baseUrl": "./src",
   }
 }

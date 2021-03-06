@@ -1,4 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Dashboard from 'apps/dashboard/Dashboard';
 
-ReactDOM.render(<h1>Hello from React!!</h1>, document.getElementById("root"));
+ReactDOM.render(<Dashboard />, document.getElementById("root"));
