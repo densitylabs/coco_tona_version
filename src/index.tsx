@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Dashboard from 'apps/dashboard/Dashboard';
+import Layout from 'shared/components/Layout';
 
-ReactDOM.render(<Dashboard />, document.getElementById("root"));
+ReactDOM.render(<Layout />, document.getElementById("root"));
