@@ -1,7 +1,7 @@
-import React from 'react';
-import coco_logo from 'shared/assets/coco_logo.svg';
-import Dashboard from 'apps/dashboard/Dashboard';
-import styled from 'styled-components';
+import React from "react";
+import coco_logo from "shared/assets/coco_logo.svg";
+import Dashboard from "apps/dashboard/Dashboard";
+import styled from "styled-components";
 
 const LayoutWrapper = styled.div`
   align-items: center;
@@ -19,7 +19,7 @@ const Layout = () => (
   <LayoutWrapper>
     <Header>
       <div className="logo">
-        <img src={coco_logo} alt=""/>
+        <img src={coco_logo} alt="" />
       </div>
     </Header>
     <main>

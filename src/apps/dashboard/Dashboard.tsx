@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { H1 } from 'shared/components/htmlElements';
 import CountrySelection from './CountrySelection';
 import CountrySelectionEditor from './CountrySelectionEditor';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import RoundedButton from 'shared/components/RoundedButton';
+import {
+  DashboardWrapper,
+  CountrySelectionsWrapper,
+  CountrySelectionWrapper,
+} from './DashboardStyles';
+import { onAddNewCountryTypes } from './DashboardTypes';
 
 const Dashboard = () => {
-  const DashboardWrapper = styled.div`
-    border-radius: 4px;
-    box-shadow: 1px 4px 10px 1px rgba(0, 0, 0, 0.3);
-    width: 1072px;
-  `;
+  const [comparedCountries, setComparedCountries] = useState([]);
+  const [showCountrySelector, setShowCountrySelector] = useState(false);
+  const [addNewCountryInProgress, setAddNewCountryInProgress] = useState(false);
 
-  const CountrySelectionsWrapper = styled.div`
-    padding: 0 22px;
-  `;
+  const onAddNewCountry = (countryCode: string) => {
+    setAddNewCountryInProgress(false);
+    setComparedCountries([...comparedCountries, countryCode]);
+  };
 
   const AddButton = (
     <RoundedButton
@@ -25,13 +29,14 @@ const Dashboard = () => {
       iconComponent={
         <FontAwesomeIcon
           icon={faPlus}
-          color='black'
+          color="black"
           style={{
             marginTop: '16px',
-            marginRight: '10px'
+            marginRight: '10px',
           }}
         />
       }
+      onClick={() => setAddNewCountryInProgress(true)}
     />
   );
 
@@ -39,10 +44,18 @@ const Dashboard = () => {
     <DashboardWrapper>
       <H1>Compare new cases from different countries</H1>
       <CountrySelectionsWrapper>
-        <CountrySelection />
-        {AddButton}
+        <CountrySelectionWrapper>
+          <CountrySelection />
+        </CountrySelectionWrapper>
+        <CountrySelectionWrapper>
+          <CountrySelection />
+        </CountrySelectionWrapper>
+        <CountrySelectionWrapper>{AddButton}</CountrySelectionWrapper>
       </CountrySelectionsWrapper>
-      <CountrySelectionEditor />
+
+      {addNewCountryInProgress && (
+        <CountrySelectionEditor onClose={onAddNewCountry} />
+      )}
     </DashboardWrapper>
   );
 };

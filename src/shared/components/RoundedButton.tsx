@@ -1,13 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type RoundedButtonProps = {
-  borderColor: string,
-  iconComponent: JSX.Element,
-  label: string
+type RoundedButtonTypes = {
+  borderColor: string;
+  iconComponent: JSX.Element;
+  label: string;
+  // onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: React.MouseEventHandler;
 };
 
-const RoundedButton = ({ borderColor, iconComponent, label }: RoundedButtonProps) => {
+const RoundedButton = ({
+  borderColor,
+  iconComponent,
+  label,
+  onClick,
+}: RoundedButtonTypes) => {
   const Wrapper = styled.div`
     border: 1px solid ${borderColor};
     border-radius: 28px;
@@ -22,11 +29,11 @@ const RoundedButton = ({ borderColor, iconComponent, label }: RoundedButtonProps
   `;
 
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       {iconComponent}
       <span>{label}</span>
     </Wrapper>
   );
-}
+};
 
 export default RoundedButton;

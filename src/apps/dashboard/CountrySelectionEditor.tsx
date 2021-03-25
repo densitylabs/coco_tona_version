@@ -1,111 +1,110 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Select, { components } from 'react-select';
 import ReactCountryFlag from 'react-country-flag';
 import { countries } from 'shared/lib/countries.js';
 import { get } from 'lodash';
-import styled from 'styled-components';
 import { H2 } from 'shared/components/htmlElements';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  DeleteButton,
+  OptionWrapper,
+  OperationsWrapper,
+  Wrapper,
+  SelectWrapper,
+  CloseIconWrapper,
+} from './CountrySelectionEditorStyles';
+import { buildSelectorOptions } from './CountrySelectionEditorHelpers';
 
-const DeleteButton = styled.button`
-  background: red;
-  border: 0px;
-  border-radius: 5px;
-  color: white;
-  line-height: 30px;
-  margin-left: 15px;
-  padding: 0 10px;
-`;
+type CountrySelectionEditorTypes = {
+  countryCode?: string;
+  onClose: (countryCode: string) => void;
+};
 
-const OptionWrapper = styled.div`
-  display: flex;
-  padding-left: 24px;
-`;
+const Control = ({ children, ...props }) => {
+  const selectedCountryCode = get(props.getValue(), '[0].value', '');
 
-const OperationsWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const CountryEditor = ({ countryCode = '' }) => {
-  const Wrapper = styled.div`
-    background-color: white;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    height: 600px;
-    width: 600px;
-
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-  `;
-
-  const SelectWrapper = styled.div`
-    width: 280px;
-  `;
-
-  const buildOptionData = ((countryCode:string) : object => countryCode
-    ? { value: countryCode, label: countries[countryCode].name }
-    : {}
-  );
-
-  const options = Object.keys(countries).map(countryCode =>
-    buildOptionData(countryCode)
-  );
-
-  const Control = ({ children, ...props }) => {
-    const selectedCountryCode = get(props.getValue(), '[0].value', '');
-
-    return (
-      <components.Control {...props}>
-        {
-          selectedCountryCode &&
-          <ReactCountryFlag
-            countryCode={selectedCountryCode}
-            style={{
-              paddingLeft: '15px'
-            }}
-          />
-        }
-        {children}
-      </components.Control>
-    );
-  };
-
-  const Option = props => {
-    return (
-      <OptionWrapper>
+  return (
+    <components.Control {...props}>
+      {selectedCountryCode && (
         <ReactCountryFlag
-          countryCode={props.data.value}
+          countryCode={selectedCountryCode}
           style={{
-            fontSize: '1.6em',
-            lineHeight: '1.5em',
+            paddingLeft: '15px',
           }}
         />
-        <components.Option {...props} />
-      </OptionWrapper>
-    );
-  };
+      )}
+      {children}
+    </components.Control>
+  );
+};
+
+const Option = (props: any) => {
+  return (
+    <OptionWrapper>
+      <ReactCountryFlag
+        countryCode={props.data.value}
+        style={{
+          fontSize: '1.6em',
+          lineHeight: '1.5em',
+        }}
+      />
+      <components.Option {...props} />
+    </OptionWrapper>
+  );
+};
+
+const CountrySelectionEditor = ({
+  countryCode = '',
+  onClose,
+}: CountrySelectionEditorTypes) => {
+  const [selectedCountryCode, setSelectedCountryCode] = useState('');
+  const [selectorOptions, setSelectorOptions] = useState([]);
+
+  useEffect(() => {
+    setSelectedCountryCode(countryCode);
+    setSelectorOptions(buildSelectorOptions());
+  }, []);
+
+  console.log('selectedCountryCode', selectedCountryCode);
 
   return (
     <Wrapper>
+      <CloseIconWrapper>
+        <FontAwesomeIcon
+          icon={faTimes}
+          color="black"
+          style={{
+            marginTop: '16px',
+            marginRight: '10px',
+            fontSize: 20,
+            cursor: 'pointer',
+          }}
+          onClick={(e) => {
+            e.preventDefault();
+            onClose(selectedCountryCode);
+          }}
+        />
+      </CloseIconWrapper>
       <H2>Country Selection</H2>
       <br />
       <OperationsWrapper>
         <SelectWrapper>
           <Select
-            placeholder='Select country'
-            options={options}
+            placeholder="Select country"
+            options={selectorOptions}
             components={{ Control, Option }}
-            value={buildOptionData(countryCode)}
+            value={'mx'}
             styles={{
-              option: base => ({
+              option: (base: any) => ({
                 ...base,
                 fontSize: '14px',
                 cursor: 'pointer',
               }),
             }}
+            onChange={({ value }: { value: string }) =>
+              setSelectedCountryCode(value)
+            }
           />
         </SelectWrapper>
         <DeleteButton>Delete Country</DeleteButton>
@@ -114,4 +113,4 @@ const CountryEditor = ({ countryCode = '' }) => {
   );
 };
 
-export default CountryEditor;
+export default CountrySelectionEditor;
