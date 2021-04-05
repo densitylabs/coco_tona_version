@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DeleteButton = styled.button`
   background: red;
   border: 0px;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
   line-height: 30px;
   margin-left: 15px;
   padding: 0 10px;

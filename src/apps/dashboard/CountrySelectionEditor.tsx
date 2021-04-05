@@ -70,8 +70,6 @@ const CountrySelectionEditor = ({
     setSelectorOptions(buildSelectorOptions());
   }, []);
 
-  console.log('selectedCountryCode', selectedCountryCode);
-
   return (
     <Wrapper>
       <CloseIconWrapper>
@@ -109,7 +107,9 @@ const CountrySelectionEditor = ({
             onChange={({ value }: { value: string }) => onClose(value)}
           />
         </SelectWrapper>
-        <DeleteButton>Delete Country</DeleteButton>
+        <DeleteButton onClick={() => onClose(null)}>
+          Delete Country
+        </DeleteButton>
       </OperationsWrapper>
     </Wrapper>
   );

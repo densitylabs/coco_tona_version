@@ -52,12 +52,7 @@ const CountrySelection = ({ countries }: CountrySelectionProps) => {
   if (!countryCodes.length) {
     return (
       <ChartWrapper>
-        {!countryCodes.length && (
-          <div>
-            <br />
-            <h3>Start adding countries to review.</h3>
-          </div>
-        )}
+        {!countryCodes.length && <h3>Start adding countries to review.</h3>}
       </ChartWrapper>
     );
   }

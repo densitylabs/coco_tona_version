@@ -22,18 +22,21 @@ const Dashboard = () => {
   const [countryCodeUnderEdit, setCountryCodeUnderEdit] = useState('');
   const [countryModalOperation, setCountryModalOperation] = useState('');
 
-  const onCountrySelection = (countryCode: string) => {
+  const onCountrySelection = (countryCode?: string) => {
     let countries;
     switch (countryModalOperation) {
       case ADD:
         countries = [...comparedCountries, countryCode];
         break;
       case EDIT:
-        countries = comparedCountries.map((comparedCountry) =>
-          comparedCountry === countryCodeUnderEdit
-            ? countryCode
-            : comparedCountry
-        );
+        countries = comparedCountries.reduce((acc, comparedCountry) => {
+          const newCountryValue =
+            comparedCountry === countryCodeUnderEdit
+              ? countryCode
+              : comparedCountry;
+
+          return newCountryValue ? [...acc, newCountryValue] : [...acc];
+        }, []);
         break;
     }
 
@@ -106,6 +109,7 @@ const Dashboard = () => {
         )}
       </CountrySelectionsWrapper>
 
+      <br />
       <Chart countries={comparedCountriesData} />
     </DashboardWrapper>
   );
