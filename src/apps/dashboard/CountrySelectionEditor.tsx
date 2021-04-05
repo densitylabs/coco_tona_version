@@ -22,7 +22,8 @@ import { NEW_COUNTRY } from './helpers';
 
 type CountrySelectionEditorTypes = {
   countryCode?: string;
-  onClose: (countryCode: string) => void;
+  onSelection: (countryCode: string) => void;
+  onClose: () => void;
 };
 
 const Control = ({ children, ...props }) => {
@@ -60,6 +61,7 @@ const Option = (props: any) => {
 
 const CountrySelectionEditor = ({
   countryCode = '',
+  onSelection,
   onClose,
 }: CountrySelectionEditorTypes) => {
   const [selectedCountryCode, setSelectedCountryCode] = useState('');
@@ -84,7 +86,7 @@ const CountrySelectionEditor = ({
           }}
           onClick={(e) => {
             e.preventDefault();
-            onClose(selectedCountryCode);
+            onClose();
           }}
         />
       </CloseIconWrapper>
@@ -104,10 +106,10 @@ const CountrySelectionEditor = ({
                 cursor: 'pointer',
               }),
             }}
-            onChange={({ value }: { value: string }) => onClose(value)}
+            onChange={({ value }: { value: string }) => onSelection(value)}
           />
         </SelectWrapper>
-        <DeleteButton onClick={() => onClose(null)}>
+        <DeleteButton onClick={() => onSelection(null)}>
           Delete Country
         </DeleteButton>
       </OperationsWrapper>

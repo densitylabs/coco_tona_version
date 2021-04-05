@@ -103,7 +103,11 @@ const Dashboard = () => {
 
         {countryModalOperation && (
           <CountrySelectionEditor
-            onClose={onCountrySelection}
+            onClose={() => {
+              setCountryCodeUnderEdit('');
+              setCountryModalOperation('');
+            }}
+            onSelection={onCountrySelection}
             countryCode={countryCodeUnderEdit}
           />
         )}
