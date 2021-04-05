@@ -11,6 +11,14 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist/',
+    proxy: {
+      '/covid_api': {
+        target: 'https://covid19-api.org/api/status',
+        pathRewrite: { '^/covid_api': '' },
+        secure: false,
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),

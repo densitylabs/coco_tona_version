@@ -3,17 +3,19 @@ import RoundedButton from 'shared/components/RoundedButton';
 import ReactCountryFlag from 'react-country-flag';
 
 type CountrySelectionProps = {
-  countryCode?: string,
-  countryName?: string
+  countryCode?: string;
+  countryName?: string;
+  borderColor?: string;
 };
 
 const CountrySelection = ({
-  countryCode = 'us',
-  countryName = 'United States',
+  countryCode,
+  countryName,
+  borderColor,
 }: CountrySelectionProps) => {
   return (
     <RoundedButton
-      borderColor='red'
+      borderColor={borderColor}
       label={countryName}
       iconComponent={
         <ReactCountryFlag
@@ -26,7 +28,7 @@ const CountrySelection = ({
         />
       }
     />
-  )
+  );
 };
 
 export default CountrySelection;

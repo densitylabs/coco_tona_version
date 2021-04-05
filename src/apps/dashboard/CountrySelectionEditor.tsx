@@ -102,9 +102,7 @@ const CountrySelectionEditor = ({
                 cursor: 'pointer',
               }),
             }}
-            onChange={({ value }: { value: string }) =>
-              setSelectedCountryCode(value)
-            }
+            onChange={({ value }: { value: string }) => onClose(value)}
           />
         </SelectWrapper>
         <DeleteButton>Delete Country</DeleteButton>
