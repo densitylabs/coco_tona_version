@@ -3,7 +3,7 @@ import axios from 'axios';
 class APIHttpClient {
   static async get({ path = '' }: { path: string }) {
     try {
-      const response = await fetch('/covid_api/US', {
+      const response = await fetch(`/covid_api/${path}`, {
         method: 'GET',
       });
       const result = await response.json();

@@ -11,8 +11,8 @@ import {
   CountrySelectionWrapper,
   ChartWrapper,
 } from './DashboardStyles';
-import Covid from 'services/Covid';
 import { countries } from 'shared/lib/countries';
+import Chart from './Chart';
 
 const ADD = 'ADD';
 const EDIT = 'EDIT';
@@ -41,6 +41,18 @@ const Dashboard = () => {
     setCountryModalOperation('');
     setComparedCountries(countries);
   };
+
+  const comparedCountriesData = comparedCountries.reduce(
+    (acc, comparedCountryCode) => {
+      const countryData = countries[comparedCountryCode];
+
+      return {
+        ...acc,
+        [comparedCountryCode]: countryData,
+      };
+    },
+    {}
+  );
 
   return (
     <DashboardWrapper>
@@ -94,14 +106,7 @@ const Dashboard = () => {
         )}
       </CountrySelectionsWrapper>
 
-      <ChartWrapper>
-        {!comparedCountries.length && (
-          <div>
-            <br />
-            <h3>Start adding countries to review.</h3>
-          </div>
-        )}
-      </ChartWrapper>
+      <Chart countries={comparedCountriesData} />
     </DashboardWrapper>
   );
 };

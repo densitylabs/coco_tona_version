@@ -1,7 +1,10 @@
-import React from "react";
-import coco_logo from "shared/assets/coco_logo.svg";
-import Dashboard from "apps/dashboard/Dashboard";
-import styled from "styled-components";
+import React from 'react';
+import coco_logo from 'shared/assets/coco_logo.svg';
+import Dashboard from 'apps/dashboard/Dashboard';
+import styled from 'styled-components';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const LayoutWrapper = styled.div`
   align-items: center;
@@ -23,7 +26,9 @@ const Layout = () => (
       </div>
     </Header>
     <main>
-      <Dashboard />
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
     </main>
   </LayoutWrapper>
 );
