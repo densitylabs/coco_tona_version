@@ -19,3 +19,14 @@ export const ChartWrapper = styled.div`
 export const CountrySelectionWrapper = styled.div`
   margin-left: 24px;
 `;
+
+export const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
+`;
+
+export const DateFilterWrapper = styled.div`
+  border-bottom: 1px solid #bdbdbd;
+  padding: 0 23px 23px;
+`;

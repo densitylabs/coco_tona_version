@@ -13,6 +13,7 @@ import {
 } from './DashboardStyles';
 import { countries } from 'shared/lib/countries';
 import Chart from './Chart';
+import DateFilter from './DateFilter';
 
 const ADD = 'ADD';
 const EDIT = 'EDIT';
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const [comparedCountries, setComparedCountries] = useState([]);
   const [countryCodeUnderEdit, setCountryCodeUnderEdit] = useState('');
   const [countryModalOperation, setCountryModalOperation] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
 
   const onCountrySelection = (countryCode?: string) => {
     let countries;
@@ -61,6 +63,11 @@ const Dashboard = () => {
     <DashboardWrapper>
       <H1>Compare new cases from different countries</H1>
       <br />
+
+      <DateFilter
+        startDate={startDate}
+        onChange={(date) => setStartDate(date)}
+      />
 
       <CountrySelectionsWrapper>
         {comparedCountries.map((comparedCountryCode) => {
@@ -114,7 +121,7 @@ const Dashboard = () => {
       </CountrySelectionsWrapper>
 
       <br />
-      <Chart countries={comparedCountriesData} />
+      <Chart countries={comparedCountriesData} date={startDate} />
     </DashboardWrapper>
   );
 };

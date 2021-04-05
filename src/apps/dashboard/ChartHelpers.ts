@@ -46,3 +46,13 @@ export const decorateCountriesForChart = ({
     datasets,
   };
 };
+
+const padStr = (i: number) => {
+  return i < 10 ? '0' + i : '' + i;
+};
+
+export const dateToApiString = (date: Date) => {
+  return `${padStr(date.getFullYear())}-${padStr(1 + date.getMonth())}-${padStr(
+    date.getDate()
+  )}`;
+};
