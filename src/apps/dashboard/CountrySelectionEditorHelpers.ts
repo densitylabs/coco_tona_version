@@ -1,6 +1,6 @@
 import { countries } from 'shared/lib/countries';
 
-const buildOptionData = (countryCode: string): object =>
+export const buildOptionData = (countryCode: string): object =>
   countryCode ? { value: countryCode, label: countries[countryCode].name } : {};
 
 export const buildSelectorOptions = () =>

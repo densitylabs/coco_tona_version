@@ -11,22 +11,36 @@ import {
   CountrySelectionWrapper,
   ChartWrapper,
 } from './DashboardStyles';
-import { onAddNewCountryTypes } from './DashboardTypes';
 import Covid from 'services/Covid';
 import { countries } from 'shared/lib/countries';
 
+const ADD = 'ADD';
+const EDIT = 'EDIT';
+
 const Dashboard = () => {
   const [comparedCountries, setComparedCountries] = useState([]);
-  const [showCountrySelector, setShowCountrySelector] = useState(false);
-  const [addNewCountryInProgress, setAddNewCountryInProgress] = useState(false);
-  const [countriesInformation, setCountriesInformation] = useState({});
+  const [countryCodeUnderEdit, setCountryCodeUnderEdit] = useState('');
+  const [countryModalOperation, setCountryModalOperation] = useState('');
 
-  const onAddNewCountry = (countryCode: string) => {
-    setAddNewCountryInProgress(false);
-    setComparedCountries([...comparedCountries, countryCode]);
+  const onCountrySelection = (countryCode: string) => {
+    let countries;
+    switch (countryModalOperation) {
+      case ADD:
+        countries = [...comparedCountries, countryCode];
+        break;
+      case EDIT:
+        countries = comparedCountries.map((comparedCountry) =>
+          comparedCountry === countryCodeUnderEdit
+            ? countryCode
+            : comparedCountry
+        );
+        break;
+    }
+
+    setCountryCodeUnderEdit('');
+    setCountryModalOperation('');
+    setComparedCountries(countries);
   };
-
-  console.log('comparedCountries', comparedCountries);
 
   return (
     <DashboardWrapper>
@@ -42,6 +56,10 @@ const Dashboard = () => {
                 countryCode={comparedCountryCode}
                 borderColor={country.color}
                 countryName={country.name}
+                onClick={() => {
+                  setCountryCodeUnderEdit(comparedCountryCode);
+                  setCountryModalOperation(EDIT);
+                }}
               />
             </CountrySelectionWrapper>
           );
@@ -61,12 +79,18 @@ const Dashboard = () => {
                 }}
               />
             }
-            onClick={() => setAddNewCountryInProgress(true)}
+            onClick={() => {
+              setCountryCodeUnderEdit('');
+              setCountryModalOperation(ADD);
+            }}
           />
         </CountrySelectionWrapper>
 
-        {addNewCountryInProgress && (
-          <CountrySelectionEditor onClose={onAddNewCountry} />
+        {countryModalOperation && (
+          <CountrySelectionEditor
+            onClose={onCountrySelection}
+            countryCode={countryCodeUnderEdit}
+          />
         )}
       </CountrySelectionsWrapper>
 

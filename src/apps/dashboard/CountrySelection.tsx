@@ -6,12 +6,14 @@ type CountrySelectionProps = {
   countryCode?: string;
   countryName?: string;
   borderColor?: string;
+  onClick?: React.MouseEventHandler;
 };
 
 const CountrySelection = ({
   countryCode,
   countryName,
   borderColor,
+  onClick,
 }: CountrySelectionProps) => {
   return (
     <RoundedButton
@@ -27,6 +29,7 @@ const CountrySelection = ({
           countryCode={countryCode}
         />
       }
+      onClick={onClick}
     />
   );
 };

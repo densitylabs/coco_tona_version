@@ -14,7 +14,11 @@ import {
   SelectWrapper,
   CloseIconWrapper,
 } from './CountrySelectionEditorStyles';
-import { buildSelectorOptions } from './CountrySelectionEditorHelpers';
+import {
+  buildSelectorOptions,
+  buildOptionData,
+} from './CountrySelectionEditorHelpers';
+import { NEW_COUNTRY } from './helpers';
 
 type CountrySelectionEditorTypes = {
   countryCode?: string;
@@ -94,7 +98,7 @@ const CountrySelectionEditor = ({
             placeholder="Select country"
             options={selectorOptions}
             components={{ Control, Option }}
-            value={'mx'}
+            value={countryCode ? buildOptionData(countryCode) : ''}
             styles={{
               option: (base: any) => ({
                 ...base,
