@@ -23,7 +23,6 @@ const Chart = ({ countries, date }: ChartProps) => {
     );
   }
 
-  console.log('date', dateToApiString(date));
   const countryQueries = useQueries(
     countryCodes.map((countryCode) => {
       return {

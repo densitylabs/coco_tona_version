@@ -27,8 +27,6 @@ export const decorateCountriesForChart = ({
 }: {
   countries: countryData[];
 }) => {
-  console.log('countries', countries);
-
   const datasets = countries.map((country) => {
     return {
       ...defaultDataSetInfo,
