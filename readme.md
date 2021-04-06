@@ -1,6 +1,8 @@
 # COCO
 
-COVID Comparison Tool
+COVID Comparison tool
+
+![demo](https://github.com/densitylabs/coco_tona_version/blob/master/images/demo.gif?raw=true)
 
 ## Highlights about this app
 
